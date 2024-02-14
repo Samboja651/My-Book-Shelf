@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book API</title>
+    <style>
+        table, tr{
+            border: 2px solid grey;
+        }
+        th, td{
+            border-right: 2px solid grey;
+            border-bottom: 2px solid grey;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>My Book Shelf</h1>
+    <section>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Book</th>
+                    <th>Reading Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for(mybook of books){%>
+                    <tr>
+                        <td><%= mybook['id'] %></td>
+                        <td><%= mybook['Book'] %></td>
+                        <td><%= mybook['Status'] %></td>
+                    </tr>
+                <%}%>
+            </tbody>
+        </table>
+    </section>
+    <section>
+        <h2>Customize Your Shelf</h2>
+        <form action="/newbook" method="post">
+            <label for="book">Book</label>
+            <input type="text" name="book" id=""><br><br>
+
+            <label for="status">Status</label>
+            <input type="text" name="status" id="status"><br><br>
+
+            <button type="submit" name="add">Add Book</button>
+            <!-- <button type="submit" value="update">Update</button>
+            <button type="submit" value="delete">Delete</button> -->
+        </form>
+    </section>
+</body>
+</html>

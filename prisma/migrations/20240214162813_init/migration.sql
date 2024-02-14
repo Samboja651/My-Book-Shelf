@@ -1,0 +1,6 @@
+-- CreateTable
+CREATE TABLE "BookStore" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "Book" TEXT NOT NULL,
+    "Status" TEXT NOT NULL
+);
