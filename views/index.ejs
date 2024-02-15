@@ -40,16 +40,24 @@
     <section>
         <h2>Customize Your Shelf</h2>
         <form action="/newbook" method="post">
+
             <label for="book">Book</label>
             <input type="text" name="book" id=""><br><br>
 
             <label for="status">Status</label>
             <input type="text" name="status" id="status"><br><br>
-
+            
             <button type="submit" name="add">Add Book</button>
             <!-- <button type="submit" value="update">Update</button>
             <button type="submit" value="delete">Delete</button> -->
         </form>
     </section>
+    <!-- <section>
+        <h2>FAQS</h2>
+        <h4>How to Delete a Book</h4>
+        <p>Pass the ID of the book to this URL /delete/:id</p>
+        <h4>How to update a book</h4>
+        <p>Pass the id and status to this URL  /update/:id/:status</p>
+    </section> -->
 </body>
 </html>
