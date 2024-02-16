@@ -10,18 +10,48 @@ app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded());
 
+// get all books
 app.get('/', async (req, res)=> {
-    const bookstore = await prisma.BookStore.findMany();
-    res.json({books: bookstore});
+    const books = await prisma.BookStore.findMany();
+    res.json(books);
 })
+
+// get a specific book
+app.get('/:id', async (req, res)=>{
+    // validation
+    const id = req.params.id;
+
+    if(id.length < 1 || id.length > 10 || Number(id) == NaN || Number(id) < 1){
+        res.status(501).send("Error! Invalid ID")
+    }
+    else{
+        const dbBookId = await prisma.BookStore.findUnique({
+            where: {id: Number(id)},
+            select: {id: true}
+        });
+
+        if(dbBookId == null){
+            res.status(501).send("Failed!\nid not found")
+        }
+        else{
+            const mybook = await prisma.BookStore.findUnique({
+                where: {id: Number(id)},
+                select: {Book: true, Status: true}
+            });
+    
+            res.status(200).json(mybook);
+        }
+
+    }
+});
 
 app.post('/newbook/:book/:status', async (req, res) => {
     const {book, status} = req.params;
     if(book.length > 50 || book.length < 2){
-        res.status(510).send('Error!\nYour book looks suspicious, check again then retry');
+        res.status(501).send('Error!\nYour book looks suspicious, check again then retry');
     }
     else if(status.length > 15 || status.length < 2){
-        res.status(510).send('Error!\nThe reading status is unsurpported');
+        res.status(501).send('Error!\nThe reading status is unsurpported');
     }
     else{
         const newbook = await prisma.BookStore.create({
@@ -38,10 +68,10 @@ app.put('/update/:id/:status', async (req, res) => {
     let {status, id} = req.params;
     // validation
     if(status.length > 15 || status.length < 2){
-        res.status(510).send('Error!\nThe reading status is unsurpported');
+        res.status(501).send('Error!\nThe reading status is unsurpported');
     }
     else if(id.length < 1 || id.length > 10 || Number(id) == NaN || Number(id) < 1){
-        res.status(510).send("Error! Invalid ID")
+        res.status(501).send("Error! Invalid ID")
     }
     else{
         const dbBookId = await prisma.BookStore.findUnique({
@@ -50,7 +80,7 @@ app.put('/update/:id/:status', async (req, res) => {
         });
 
         if(dbBookId == null){
-            res.status(511).send("Failed!\nid not found")
+            res.status(501).send("Failed!\nid not found")
         }
         else{
             const updateStatus = await prisma.BookStore.update({
@@ -72,7 +102,7 @@ app.delete('/delete/:id', async (req, res) =>{
     const id = req.params.id;
 
     if(id.length < 1 || id.length > 10 || Number(id) == NaN || Number(id) < 1){
-        res.status(510).send("Error! Invalid ID")
+        res.status(501).send("Error! Invalid ID")
     }
     else{
         const dbBookId = await prisma.BookStore.findUnique({
@@ -81,7 +111,7 @@ app.delete('/delete/:id', async (req, res) =>{
         })
 
         if(dbBookId == null){
-            res.status(511).send("Failed!\nid not found")
+            res.status(501).send("Failed!\nid not found")
         }
         else{
             const deletebook = await prisma.BookStore.delete({
