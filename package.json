@@ -2,7 +2,7 @@
   "name": "my-book-shelf",
   "version": "1.0.0",
   "description": "A Web App for my Book Shelf",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -19,5 +19,8 @@
   },
   "prisma": {
     "seed": "node prisma/seed.js"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.3"
   }
 }

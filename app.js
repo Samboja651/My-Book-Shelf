@@ -31,7 +31,7 @@ app.get('/:id', async (req, res)=>{
         });
 
         if(dbBookId == null){
-            res.status(501).send("Failed!\nid not found")
+            res.status(502).send("Failed!\nid not found")
         }
         else{
             const mybook = await prisma.BookStore.findUnique({
