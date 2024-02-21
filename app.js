@@ -124,8 +124,8 @@ app.delete('/delete/:id', async (req, res) =>{
     }
 })
 
-const PORT = 5000;
-app.listen(PORT, ()=>{
-    console.log(`server active on http://localhost:${PORT}`);
-});
+// const PORT = 5000;
+// app.listen(PORT, ()=>{
+//     console.log(`server active on http://localhost:${PORT}`);
+// });
 
